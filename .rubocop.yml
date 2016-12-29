@@ -1,0 +1,8 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Metrics/LineLength:
+  Max: 80

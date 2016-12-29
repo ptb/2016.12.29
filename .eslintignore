@@ -1,0 +1,5 @@
+!.eslintrc.js
+!*.json
+*.min.js
+/copy/**/*.js
+/docs/**/*.js

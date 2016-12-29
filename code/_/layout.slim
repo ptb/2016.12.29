@@ -1,0 +1,44 @@
+doctype 5
+html.no-js(lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(charset='utf-8')/
+
+    title = page_title
+
+    meta(content='initial-scale=1, width=device-width' name='viewport')/
+
+    / link(href="#{url_for('/c/style.css')}" rel='stylesheet')/
+
+    - if content_for? :head
+      == yield_content :head
+
+  body(itemscope itemtype='http://www.schema.org/Blog')
+
+    #main@main(class="#{is_blog_article? ? nil : 'hfeed'}")
+      == page_intro
+
+      - if is_blog_article?
+        == article(current_article, yield)
+      - else
+        - page_articles.each do |article|
+          == article(article, article.summary)
+
+      == pagination
+
+    - if content_for? :foot
+      == yield_content :foot
+
+    script(src="#{url_for('/j/riot.min.js')}")
+    script(src="#{url_for('/j/riot-hot-reload.min.js')}")
+    script(src="#{url_for('/j/example-tag.js')}")
+    script
+      |
+        /*<![CDATA[*/
+        riot.observable(riotHotReload)
+        riot.util.hotReloader = riotHotReload
+
+        riot.mount("*")
+        /*]]>*/
+    / = inline_tag 'script', '/j/script.js'
+
+    / script(src='/browser-sync/browser-sync-client.js')
